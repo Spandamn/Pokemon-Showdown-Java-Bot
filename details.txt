@@ -1,0 +1,8 @@
+nickname:Abysmol Bot
+password:sdfsdf
+avatar:asd
+rooms:lobby,om
+devs:spandan,xp
+server:sim.smogon.com
+comchars:,.
+ranks: +%@★*#&~

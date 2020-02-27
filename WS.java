@@ -9,6 +9,7 @@ import org.java_websocket.handshake.ServerHandshake;
 
 public class WS extends WebSocketClient {
 	Bot bot;
+	FileWriter wr;
 	public WS(URI serverUri, Draft draft) {
 		super(serverUri, draft);
 	}

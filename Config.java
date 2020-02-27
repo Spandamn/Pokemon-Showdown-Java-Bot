@@ -39,25 +39,4 @@ public class Config {
 			}
 		}
 	}
-
-	/*public static void main (String args[]) throws IOException {
-		Config c = new Config();
-		System.out.println("Nickname: " + c.nick);
-		System.out.println("Password: " + c.pass);
-		System.out.println("Avatar: " + c.avatar);
-		System.out.println("Rooms: " + String.join(", ", c.rooms));
-		System.out.println("Devs: " + String.join(", ", c.devs));
-		System.out.println("Server: " + c.server);
-		System.out.println("Command Characters: '" + c.join(c.comchars, "', '") + "'");
-		System.out.println("Ranks: '" + c.join(c.ranks, "', '") + "'");
-	}*/
-
-	String join (char[] arr, String s) {
-		String n = "";
-		for (int i = 0; i < arr.length; i++) {
-			if (i == arr.length - 1) break;
-			n = n + arr[i] + s;
-		}
-		return n;
-	}
 }

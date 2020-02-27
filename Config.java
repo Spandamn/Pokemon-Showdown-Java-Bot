@@ -3,6 +3,7 @@ import java.io.*;
 public class Config {
 	String nick, pass, avatar, server;
 	String[] rooms, devs;
+	int port;
 	char[] comchars, ranks;
 	public Config () throws IOException {
 		FileReader conf;
@@ -24,6 +25,8 @@ public class Config {
 					devs = nextL.split(":")[1].split(",");
 				} else if (nextL.startsWith("server")) {
 					server = nextL.split(":")[1];
+				} else if (nextL.startsWith("port")) {
+					port = Integer.parseInt(nextL.split(":")[1]);
 				} else if (nextL.startsWith("comchars")) {
 					comchars = nextL.split(":")[1].toCharArray();
 				} else if (nextL.startsWith("ranks")) {

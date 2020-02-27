@@ -4,5 +4,6 @@ avatar:asd
 rooms:lobby,om
 devs:spandan,xp
 server:sim.smogon.com
+port:8000
 comchars:,.
 ranks: +%@★*#&~

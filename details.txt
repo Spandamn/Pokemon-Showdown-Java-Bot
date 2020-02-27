@@ -1,9 +1,9 @@
-nickname:Java Bot Test
-password:ohkaydude!
+nickname:Java Bot Test Name
+password:yourpasswordhere
 avatar:47
-rooms:botdev,lobby,hydrocity
-devs:spandan,xp
+rooms:botdev,lobby
+devs:yourusernameshere
 server:sim.smogon.com
 port:8000
-comchars:,.
+comchars:.
 ranks: +%@★*#&~

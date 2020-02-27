@@ -1,7 +1,7 @@
-nickname:Abysmol Bot
-password:sdfsdf
-avatar:asd
-rooms:lobby,om
+nickname:Java Bot Test
+password:ohkaydude!
+avatar:47
+rooms:botdev,lobby,hydrocity
 devs:spandan,xp
 server:sim.smogon.com
 port:8000

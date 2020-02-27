@@ -1,0 +1,11 @@
+import org.json.simple.*;
+import org.json.simple.parser.*;
+
+public class Test {
+	public static void main (String args[]) throws ParseException {
+		String jstring = "{\"curuser\":{\"userid\":\"abyssalbot\",\"usernum\":\"5821017\",\"username\":\"Abyssal Bot\",\"email\":\"\",\"registertime\":\"1446899913\",\"group\":\"1\",\"banstate\":\"-20\",\"ip\":\"66.249.82.95\",\"avatar\":\"0\",\"account\":null,\"logintime\":\"1582805346\",\"loginip\":\"82.9.171.109\",\"loggedin\":true,\"outdatedpassword\":false},\"actionsuccess\":true,\"assertion\":\"2027b835975efb947a984aef82998d30de3b07220e8ae1b32701c3fc45939249fb3bcd348964cc073801c6757ecab581b7ed70a13306096578525a3997094f4adc1478b3a46baad75543500a5838f2d2430d179ad766eaa06d915e1a298f525f0e82a9ee8de1d94f142cf8c051b6ccd9c241c14e5b4c1a091bc7bc6d2d47aa8b,abyssalbot,4,1582815783,;695adfd42ad477b39930f2e086dcc1b7035b8f629f953fb3a955ab1e02377edc774a8985b745d4985c1b7e2cffe679c0f6a57b0a70c7d0a2bc0cde97ecd083b62cdd82b92781afa3a85e72e993431c200ed0523f99a82a7355fa9e593a2da4f4050ad98aaa97dcf92753d7e61000ec0d2ef200e6717e7d9cb35e6505af8e381a6364297ccd9939caf71583577aae35319e53ddeccf24999cc8d61fde76981c542e1c595f2e33fced9a9859014d5731540f2e4246fd5d32fff2c125d9a104e778e0e60da336bfa330891ea788af8db16e70e7f973e6bb27f28e3b74e6e96a66ead2757f02bd0d55db1a6c8b2d2667d0a812e1fdf62a0756b9d26e30aa69b5205a70be208311c4fd56a1f4025811b286c3b921d6b44401ec679cd73c3f1e4085c73c5062f00350ae17dbda7fa922a9cda53688d2b7454fb7c46e0706021b196b3262bfe18a0518a1e713be18e57b87639aaa6f2cf3fe2444b4511d22266a04574a59196379476aaa455dbe32a2e9a038b4f95295b5a5edad09250309d803b797ffa2e3c9af857009310966a8a73122bb17bf971b077522d748c98b26c46d6bf1f76cb1c096a5845d79f8ecb29d98f452f55c5dcee77cb77e439ca548befabdcfd0190f9b063ee3fb40f9c517152ebb5b74cf85b46207aa264ebd38818fc5cd0d848ab7177e26f76ccd42d5fbc17eacbf011451f62359fdc4405016415dba3a7771\"}";
+		JSONParser jp = new JSONParser();
+		JSONObject ob = (JSONObject) jp.parse(jstring);
+		System.out.println(((JSONObject)ob.get("curuser")).get("username"));
+	}
+}

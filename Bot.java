@@ -144,6 +144,7 @@ public class Bot {
 		for (int i = 0; i < conf.comchars.length; i++) {
 			if (message.startsWith(conf.comchars[i] + "")) isCommand = true;
 		}
+		if (r != null && !isCommand) return;
 		if (!isCommand) this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like .help to get help on commands)");
 		com.callCommand(message.substring(1).split(" ")[0], user, message.substring(message.indexOf(" ") + 1), r);
 	}

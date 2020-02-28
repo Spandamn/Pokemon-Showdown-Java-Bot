@@ -4,6 +4,7 @@ import java.util.*;
 import java.lang.reflect.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
+import org.apache.http.client.methods.*;
 
 public class Bot {
 	private boolean isLoggedIn = false;
@@ -82,11 +83,6 @@ public class Bot {
 	}
 
 	public void login (String s) {
-		/*JSONObject json = new JSONObject();
-		json.put("act","login");
-		json.put("name", this.conf.nick);
-		json.put("pass", this.conf.pass);
-		json.put("challstr", s);*/
 		try {
 			String jsonop = "{\"act\":\"login\",\"name\":\"" + this.conf.nick + "\",\"pass\":\"" + this.conf.pass + "\",\"challstr\":\"" + s + "\"}";
 			URL UrlObj = new URL("http://play.pokemonshowdown.com/action.php");
@@ -96,8 +92,6 @@ public class Bot {
 			connection.setDoOutput(true);
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 			wr.writeBytes(jsonop);
-			wr.flush();
-			wr.close();
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
 				StringBuilder response = new StringBuilder();
 				String responseLine = null;
@@ -107,7 +101,11 @@ public class Bot {
 				System.out.println(response.toString());
 				JSONParser jp = new JSONParser();
 				lgdt = (JSONObject) jp.parse(response.toString().substring(1));
-			}
+			} finally {
+				wr.flush();
+				wr.close();
+			}wr.flush();
+				wr.close();
 		}
 		catch (Exception e) {
 			System.err.println("Something went wrong.");
@@ -128,6 +126,7 @@ public class Bot {
 	}
 
 	public Room getRoom (String s) {
+		if (this.rooms.length <= 0) return null;
 		for (int i = 0; i < this.rooms.length; i++) {
 			if (this.rooms[i].id.equals(IO.toId(s))) return this.rooms[i];
 		}
@@ -145,7 +144,10 @@ public class Bot {
 			if (message.startsWith(conf.comchars[i] + "")) isCommand = true;
 		}
 		if (r != null && !isCommand) return;
-		if (!isCommand) this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like .help to get help on commands)");
+		if (!isCommand) {
+			this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like .help to get help on commands)");
+			return;
+		}
 		com.callCommand(message.substring(1).split(" ")[0], user, message.substring(message.indexOf(" ") + 1), r);
 	}
 }

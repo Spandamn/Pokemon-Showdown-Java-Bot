@@ -35,9 +35,9 @@ public class Bot {
 		String[] f = s.split("\\|");
 		formats = new String[f.length - 2];
 		for (int i = 2; i < f.length; i++) {
-			System.out.println(f[i]);
 			formats[i - 2] = f[i];
 		}
+		IO.println("Received Formats: " + formats.length);
 	}
 
 	public void handleMessage (String s) {
@@ -53,7 +53,7 @@ public class Bot {
 					rooms[rooms.length - 1] = new Room(s, this);
 					curRoom = rooms[rooms.length - 1];
 				}
-				System.out.println("Joined room " + curRoom.title);
+				IO.println("Joined room " + curRoom.title);
 				return;
 			}
 			curRoom = this.getRoom(IO.toId(ms[0]));
@@ -68,8 +68,6 @@ public class Bot {
 			}
 			System.out.println("Joined room " + curRoom.title);
 			return;
-		} else if (this.getRoom("lobby") == null) {
-			System.out.println("Received Global Message: " + s); 
 		}
 		for (int i = 0; i < ms.length; i++) {
 			if (ms[i].startsWith("|challstr|")) {
@@ -83,6 +81,7 @@ public class Bot {
 				String bd[] = ms[i].split("\\|");
 				this.username = bd[2];
 				this.id = IO.toId(bd[2]);
+				IO.println("Username is now: " + this.username);
 			} else if (curRoom != null && (ms[i].startsWith("|J|") || ms[i].startsWith("|L|") || ms[i].startsWith("|N|"))) {
 				curRoom.updateUL(ms[i]);
 			} else if (curRoom != null && (ms[i].startsWith("|c:|") || ms[i].startsWith("|c|"))) {
@@ -118,6 +117,7 @@ public class Bot {
 		}
 		catch (Exception e) {
 			System.err.println("Something went wrong.");
+			e.printStackTrace();
 			return;
 		}
 		if (lgdt != null) {
@@ -155,7 +155,6 @@ public class Bot {
 	}
 
 	public void parseChatMessage (String user, String message, Room r) {
-		//System.out.println("[" + r.title + "]" + user + ":" + message);
 		if (IO.toId(user) = this.id) return;
 		char rank = user.charAt(0);
 		boolean isCommand = false;
@@ -167,8 +166,6 @@ public class Bot {
 			return;
 		}
 		if (!isCommand) return;
-		System.out.println("Detected command \"" + message + "\" by user " + user);
-		System.out.println("Command: "+ message.substring(1).split(" ")[0]);
 		com.callCommand(message.substring(1).split(" ")[0], user, message.substring(message.indexOf(" ") + 1), r);
 	}
 
@@ -178,5 +175,9 @@ public class Bot {
 		if (IO.indexOf(conf.devs, userid) >= 0) return true;
 		if (IO.indexOf(conf.ranks, username.charAt(0)) >= IO.indexOf(conf.ranks, requiredRank)) return true;
 		return false;
+	}
+
+	public void killProcess () {
+		this.socket.close();
 	}
 }

@@ -19,7 +19,6 @@ public class Commands {
 		int cmdCount = 0;
 		for (int i = 0; i < methods.length; i++) {
 			String fnName = methods[i].getName();
-			IO.println(fnName);
 			if (fnName.startsWith("_")) cmdCount++;
 		}
 		cmdList = new String[cmdCount];
@@ -30,42 +29,34 @@ public class Commands {
 				cmdList[cmdCount++] = fnName.substring(1);
 			}
 		}
+		IO.println("Loaded commands: " + IO.join(cmdList, ", "));
 	}
 
 	public void callCommand (String cmd, String user, String mess, Room room) {
-		IO.println("In callCommand() method");
 		Method send;
 		Class[] paramTypes = {String.class, String.class};
 		String sendType = "PM";
 		try {
-			System.out.println("In try block");
 			if (room == null) {
 				send = bot.getClass().getMethod("sendPM", paramTypes);
 			} else {
-				IO.println("Room exists. getting room method send");
 				sendType = "room";
 				send = room.getClass().getMethod("send", paramTypes);
 			}
 			if (IO.indexOf(cmdList, IO.toId(cmd)) < 0) {
-				IO.println("Command not found. Invoking send");
 				send.invoke(sendType.equals("PM") ? bot : room, user, "Error; Command not found");
 				return;
 			}
 			Class[] params = {String.class, String.class, Method.class, Room.class};
-			IO.println("Declared class paramaters, getting command");
 			Method com = this.getClass().getMethod("_" + cmd, params);
-			IO.println("Successfully got command, invoking");
 			com.invoke(this, user, mess, send, sendType.equals("PM") ? null : room);
-			IO.println("Command successful");
 		} catch (NoSuchMethodException nsme) {
-			System.out.println("Oops! Command went wrong.");
 			nsme.printStackTrace();
 		} catch (IllegalAccessException iae) {
-			System.out.println("Oops! Something went wrong.");
+			iae.printStackTrace();
 		} catch (InvocationTargetException ite) {
-			System.out.println("Oops! Something went wrong.");
+			ite.printStackTrace();
 		} catch (Exception e) {
-			IO.println(e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -87,5 +78,10 @@ public class Commands {
 		}
 		ob.allowCommands(mess.charAt(0));
 		send.invoke(ob, user, "Successful!");
+	}
+
+	public void _help (String user, String mess, Method send, Room ob) {
+		if (!bot.hasUserAuth(user, '&')) return;
+		IO.println("Shutdown triggered by " + user);
 	}
 }

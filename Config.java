@@ -17,7 +17,6 @@ public class Config {
 			nick = lgdt.getString("nickname");
 			pass = lgdt.getString("password");
 			avatar = lgdt.getInt("avatar");
-			//System.out.println(lgdt.get("rooms").getClass().getName());
 			JSONArray rooms = (JSONArray) lgdt.get("rooms");
 			JSONArray devs = (JSONArray) lgdt.get("devs");
 			server = lgdt.getString("server");

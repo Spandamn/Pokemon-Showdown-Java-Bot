@@ -177,8 +177,7 @@ public class IO {
 	public static String join (String[] arr, String s) {
 		String n = "";
 		for (int i = 0; i < arr.length; i++) {
-			if (i == arr.length - 1) break;
-			n = n + arr[i] + s;
+			n = n + arr[i] + (i == arr.length - 1) ? "" : s;
 		}
 		return n;
 	}
@@ -186,8 +185,7 @@ public class IO {
 	public static String join (char[] arr, String s) {
 		String n = "";
 		for (int i = 0; i < arr.length; i++) {
-			if (i == arr.length - 1) break;
-			n = n + arr[i] + s;
+			n = n + arr[i] + (i == arr.length - 1) ? "" : s;
 		}
 		return n;
 	}

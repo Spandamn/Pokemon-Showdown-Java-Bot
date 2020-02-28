@@ -15,6 +15,7 @@ public class Bot {
 	Room[] rooms;
 	String username, id;
 	char defaultAuthRank;
+	String lastM = "";
 	Bot (Config conf) {
 		this.conf = conf;
 		com = new Commands(this);
@@ -137,6 +138,7 @@ public class Bot {
 	}
 
 	public void sendToServer (String s) {
+		if (lastM.equals(s)) return;
 		this.socket.send(s);
 	}
 
@@ -154,6 +156,7 @@ public class Bot {
 
 	public void parseChatMessage (String user, String message, Room r) {
 		//System.out.println("[" + r.title + "]" + user + ":" + message);
+		if (IO.toId(user) = this.id) return;
 		char rank = user.charAt(0);
 		boolean isCommand = false;
 		for (int i = 0; i < conf.comchars.length; i++) {

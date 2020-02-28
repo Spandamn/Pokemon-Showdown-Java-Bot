@@ -36,6 +36,7 @@ public class Room {
 	public void send (String user, String message) {
 		if ((user.length() == 0 || user.charAt(0) == ' ') && !bot.hasUserAuth(user, defaultAuthRank)) {
 			bot.sendPM(user, message);
+			return;
 		}
 		bot.sendToServer(this.id + "|" + message);
 	}

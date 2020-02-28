@@ -55,7 +55,7 @@ public class Commands {
 			IO.println("Declared class paramaters, getting command");
 			Method com = this.getClass().getMethod("_" + cmd, params);
 			IO.println("Successfully got command, invoking");
-			com.invoke(com, user, mess, send, sendType.equals("PM") ? null : room);
+			com.invoke(this, user, mess, send, sendType.equals("PM") ? null : room);
 			IO.println("Command successful");
 		} catch (NoSuchMethodException nsme) {
 			System.out.println("Oops! Command went wrong.");

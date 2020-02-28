@@ -104,43 +104,43 @@ public class IO {
 
 	// Output functions
 
-	void print (String s) {
+	public static void print (String s) {
 		System.out.print(s);
 	}
 
-	void println (String s) {
+	public static void println (String s) {
 		System.out.println(s);
 	}
 
-	void println (int s) {
+	public static void println (int s) {
 		System.out.println(s);
 	}
 
-	void println (float s) {
+	public static void println (float s) {
 		System.out.println(s);
 	}
 
-	void println (double s) {
+	public static void println (double s) {
 		System.out.println(s);
 	}
 
-	void println (long s) {
+	public static void println (long s) {
 		System.out.println(s);
 	}
 
-	void println (short s) {
+	public static void println (short s) {
 		System.out.println(s);
 	}
 
-	void println (byte s) {
+	public static void println (byte s) {
 		System.out.println(s);
 	}
 
-	void println (boolean s) {
+	public static void println (boolean s) {
 		System.out.println(s);
 	}
 
-	void println (char s) {
+	public static void println (char s) {
 		System.out.println(s);
 	}
 
@@ -192,9 +192,20 @@ public class IO {
 		return n;
 	}
 
-	public static int searchArr (String arr[], String s) {
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i].equalsIgnoreCase(s)) return i;
+	public static int indexOf(char[] array, char key) {
+		for (int i = 0; i < array.length; ++i) {
+			if (key == array[i]) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public static int indexOf(String[] array, String key) {
+		for (int i = 0; i < array.length; ++i) {
+			if (key.equals(array[i])) {
+				return i;
+			}
 		}
 		return -1;
 	}

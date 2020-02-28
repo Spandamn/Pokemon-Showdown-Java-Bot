@@ -3,9 +3,9 @@ import java.util.*;
 import java.lang.reflect.*;
 
 public class Test {
-	public static void main (String args[]) throws IOException {
+	public static void main (String args[]) throws IOException, NoSuchMethodException {
 		IO io = new IO ();
-		Method m[] = io.getClass().getDeclaredMethods();
-		System.out.println(m[0].getDeclaringClass());
+		Class[] paramTypes = {String.class, String.class};
+			Method send = Room.class.getMethod("send", paramTypes);
 	}
 }

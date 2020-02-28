@@ -13,6 +13,8 @@ public class Bot {
 	Commands com;
 	JSONObject lgdt;
 	Room[] rooms;
+	String username, id;
+	char defaultAuthRank;
 	Bot (Config conf) {
 		this.conf = conf;
 		com = new Commands(this);
@@ -24,7 +26,8 @@ public class Bot {
 		} catch (UnknownHostException uhe) {
 			System.err.println("Error: Invalid Servername or Port");
 		}
-		rooms = new Room[1];
+		this.rooms = new Room[1];
+		this.defaultAuthRank = '~';
 	}
 
 	public void setFormats (String s) {
@@ -38,7 +41,6 @@ public class Bot {
 
 	public void handleMessage (String s) {
 		String[] ms = s.split("\n");
-		System.out.println("Message length: " + ms.length);
 		Room curRoom = null;
 		if (s.startsWith(">")) {
 			if (ms[1].startsWith("|init|")) {
@@ -50,7 +52,10 @@ public class Bot {
 					rooms[rooms.length - 1] = new Room(s, this);
 					curRoom = rooms[rooms.length - 1];
 				}
+				System.out.println("Joined room " + curRoom.title);
+				return;
 			}
+			curRoom = this.getRoom(IO.toId(ms[0]));
 		} else if (s.startsWith("|init|")) {
 			if (rooms[0] == null) {
 				rooms[0] = new Room(">lobby\n" + s, this);
@@ -60,17 +65,23 @@ public class Bot {
 				rooms[rooms.length - 1] = new Room(">lobby\n" + s, this);
 				curRoom = rooms[rooms.length - 1];
 			}
-		} /*else {
-			curRoom = new Room(">lobby\n|init|" + s, this);
-		}*/
+			System.out.println("Joined room " + curRoom.title);
+			return;
+		} else if (this.getRoom("lobby") == null) {
+			System.out.println("Received Global Message: " + s); 
+		}
 		for (int i = 0; i < ms.length; i++) {
-			if (ms[i].startsWith("|pm|")) {
+			if (ms[i].startsWith("|challstr|")) {
+				this.login(ms[i].substring(10));
+			} else if (ms[i].startsWith("|formats|")) {
+				this.setFormats(ms[i]);
+			} else if (ms[i].startsWith("|pm|")) {
 				String bd[] = ms[i].split("\\|");
 				this.parseChatMessage(bd[2], bd[4], null);
-			} else if (ms[i].startsWith("|formats|")) {
-				setFormats(ms[i]);
-			} else if (ms[i].startsWith("|challstr|")) {
-				this.login(ms[i].substring(10));
+			} else if (ms[i].startsWith("|updateuser|")) {
+				String bd[] = ms[i].split("\\|");
+				this.username = bd[2];
+				this.id = IO.toId(bd[2]);
 			} else if (curRoom != null && (ms[i].startsWith("|J|") || ms[i].startsWith("|L|") || ms[i].startsWith("|N|"))) {
 				curRoom.updateUL(ms[i]);
 			} else if (curRoom != null && (ms[i].startsWith("|c:|") || ms[i].startsWith("|c|"))) {
@@ -102,8 +113,7 @@ public class Bot {
 			} finally {
 				wr.flush();
 				wr.close();
-			}wr.flush();
-				wr.close();
+			}
 		}
 		catch (Exception e) {
 			System.err.println("Something went wrong.");
@@ -111,12 +121,14 @@ public class Bot {
 		}
 		if (lgdt != null) {
 			try {
-				this.sendToServer("|/trn " + conf.nick + ",0," + lgdt.getString("assertation"));
+				this.sendToServer("|/trn " + conf.nick + ",0," + lgdt.getString("assertion"));
 			} catch (JSONException jsone) {
 				System.err.println("Cant read JSON.");
 				return;
 			}
 			this.isLoggedIn = true;
+			System.out.println("Succesfully logged in.");
+			System.out.println("Command Characters: " + IO.join(conf.comchars, " "));
 			this.sendToServer("|/avatar " + conf.avatar);
 			for (int i = 0; i < conf.rooms.length; i++) {
 				this.sendToServer("|/join " + conf.rooms[i]);
@@ -131,7 +143,7 @@ public class Bot {
 	public Room getRoom (String s) {
 		if (this.rooms.length <= 0) return null;
 		for (int i = 0; i < this.rooms.length; i++) {
-			if (this.rooms[i].id.equals(IO.toId(s))) return this.rooms[i];
+			if (this.rooms[i] != null && this.rooms[i].id.equals(IO.toId(s))) return this.rooms[i];
 		}
 		return null;
 	}
@@ -141,16 +153,27 @@ public class Bot {
 	}
 
 	public void parseChatMessage (String user, String message, Room r) {
+		//System.out.println("[" + r.title + "]" + user + ":" + message);
 		char rank = user.charAt(0);
 		boolean isCommand = false;
 		for (int i = 0; i < conf.comchars.length; i++) {
 			if (message.startsWith(conf.comchars[i] + "")) isCommand = true;
 		}
-		if (r != null && !isCommand) return;
-		if (!isCommand) {
+		if (!isCommand && r == null) {
 			this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like .help to get help on commands)");
 			return;
 		}
+		if (!isCommand) return;
+		System.out.println("Detected command \"" + message + "\" by user " + user);
+		System.out.println("Command: "+ message.substring(1).split(" ")[0]);
 		com.callCommand(message.substring(1).split(" ")[0], user, message.substring(message.indexOf(" ") + 1), r);
+	}
+
+	public boolean hasUserAuth (String username, char requiredRank) {
+		if (requiredRank == '\0') requiredRank = this.defaultAuthRank;
+		String userid = IO.toId(username);
+		if (IO.indexOf(conf.devs, userid) >= 0) return true;
+		if (IO.indexOf(conf.ranks, username.charAt(0)) >= IO.indexOf(conf.ranks, requiredRank)) return true;
+		return false;
 	}
 }

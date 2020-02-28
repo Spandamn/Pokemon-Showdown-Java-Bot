@@ -208,7 +208,7 @@ public class Bot {
 	public void restartProcess() {
 		this.socket.close();
 		this.reloadConfig();
-		this.reloadCommands(this);
+		this.reloadCommands();
 		try {
 			socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this);
 			socket.connect();

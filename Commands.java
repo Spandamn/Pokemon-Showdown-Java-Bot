@@ -80,7 +80,7 @@ public class Commands {
 		send.invoke(ob, user, "Successful!");
 	}
 
-	public void _help (String user, String mess, Method send, Room ob) {
+	public void _kill (String user, String mess, Method send, Room ob) {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Shutdown triggered by " + user);
 	}

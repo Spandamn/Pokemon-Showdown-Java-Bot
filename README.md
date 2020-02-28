@@ -1,5 +1,5 @@
 # Pokemon-Showdown-Java-Bot
-Bot for [Pokemon Showdown](https://github.com/smogon/pokemon-showdown/). Put your login details etc in details.txt.
+Bot for [Pokemon Showdown](https://github.com/smogon/pokemon-showdown/). Put your login details etc in details.json.
 
 # Does it fuckin work
 Kind of works. Use `javac Main.java` to compile and `java Main` to run.

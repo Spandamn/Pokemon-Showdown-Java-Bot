@@ -1,0 +1,11 @@
+{
+	"nickname": "Your username here",
+	"password": "yourpasswordhere",
+	"avatar": 69,
+	"rooms": ["rooms", "the", "bot", "will", "join"],
+	"devs": ["bot", "developers"],
+	"server": "sim.smogon.com",
+	"port": 8000,
+	"comchars": [".", "-"],
+	"ranks": [" ","+","%","@","★","*","#", "&","~"],
+}

@@ -7,7 +7,6 @@ public class Main {
 
 	public static void main (String args[]) throws IOException {
 		IO io = new IO();
-		Config conf =  new Config();
-		Bot bot = new Bot(conf);
+		Bot bot = new Bot();
 	}
 }

@@ -16,11 +16,11 @@ public class Bot {
 	String username, id;
 	char defaultAuthRank;
 	String lastM = "";
-	Bot (Config conf) {
-		this.conf = conf;
+	Bot () {
+		this.conf = new Config();
 		com = new Commands(this);
 		try {
-			socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this); //51.79.72.237:8000/showdown/websocket
+			socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this);
 			socket.connect();
 		} catch (URISyntaxException use) {
 			System.err.println("Error: Invalid URI");
@@ -179,5 +179,45 @@ public class Bot {
 
 	public void killProcess () {
 		this.socket.close();
+	}
+
+	public boolean reloadCommands () {
+		try {
+			Commands com = new Commands(this);
+			this.com = com;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		IO.println("Commands reloaded");
+		return true;
+	}
+
+	public boolean reloadConfig () {
+		try {
+			Config conf = new Config();
+			this.conf = conf;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		IO.println("Config reloaded");
+		return true;
+	}
+
+	public void restartProcess() {
+		this.socket.close();
+		this.reloadConfig();
+		this.reloadCommands(this);
+		try {
+			socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this);
+			socket.connect();
+		} catch (URISyntaxException use) {
+			System.err.println("Error: Invalid URI");
+		} catch (UnknownHostException uhe) {
+			System.err.println("Error: Invalid Servername or Port");
+		}
+		this.rooms = new Room[1];
+		this.defaultAuthRank = '~';
 	}
 }

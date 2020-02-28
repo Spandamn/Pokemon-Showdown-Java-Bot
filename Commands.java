@@ -85,4 +85,32 @@ public class Commands {
 		IO.println("Shutdown triggered by " + user);
 		bot.killProcess();
 	}
+
+	public void _hotpatch (String user, String mess, Method send, Room ob) {
+		if (!bot.hasUserAuth(user, '&')) return;
+		IO.println("Reloading commands");
+		boolean b = bot.reloadCommands();
+		if (b) {
+			send.invoke(ob == null ? this.bot : ob, user, "Commands Reloaded");
+		} else {
+			send.invoke(ob == null ? this.bot : ob, user, "Error reloading commands");
+		}
+	}
+
+	public void _reloadConfig (String user, String mess, Method send, Room ob) {
+		if (!bot.hasUserAuth(user, '&')) return;
+		IO.println("Reloading config");
+		boolean b = bot.reloadConfig();
+		if (b) {
+			send.invoke(ob == null ? this.bot : ob, user, "Coonfig Reloaded");
+		} else {
+			send.invoke(ob == null ? this.bot : ob, user, "Error reloading config");
+		}
+	}
+
+	public void _restart (String user, String mess, Method send, Room ob) {
+		if (!bot.hasUserAuth(user, '&')) return;
+		IO.println("Restart triggered by " + user);
+		bot.restartProcess();
+	}
 }

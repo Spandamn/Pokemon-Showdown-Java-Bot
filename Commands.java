@@ -86,7 +86,7 @@ public class Commands {
 		bot.killProcess();
 	}
 
-	public void _hotpatch (String user, String mess, Method send, Room ob) {
+	public void _hotpatch (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Reloading commands");
 		boolean b = bot.reloadCommands();
@@ -97,7 +97,7 @@ public class Commands {
 		}
 	}
 
-	public void _reloadConfig (String user, String mess, Method send, Room ob) {
+	public void _reloadConfig (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Reloading config");
 		boolean b = bot.reloadConfig();

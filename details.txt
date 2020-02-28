@@ -1,0 +1,9 @@
+nickname:Your username here
+password:yourpasswordhere
+avatar:avatar number here
+rooms:rooms,separated,by,commas
+devs:sysop,usersnames,separated,by,commas
+server:sim.smogon.com
+port:8000
+comchars:,.
+ranks: +%@★*#&~

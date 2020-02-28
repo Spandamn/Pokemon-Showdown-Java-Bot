@@ -65,7 +65,7 @@ public class Commands {
 		send.invoke(ob == null ? this.bot : ob, user, "List of available commands: " + IO.join(cmdList, ", "));
 	}
 
-	public void _changeAuthRank (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+	public void _changeauthrank (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (mess.length() >= 1 || mess.length() == 0) {
 			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid rank");
 		}
@@ -97,7 +97,7 @@ public class Commands {
 		}
 	}
 
-	public void _reloadConfig (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+	public void _reloadconfig (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Reloading config");
 		boolean b = bot.reloadConfig();

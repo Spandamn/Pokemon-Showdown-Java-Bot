@@ -192,7 +192,7 @@ public class IO {
 	}
 
 	public static int indexOf(char[] array, char key) {
-		for (int i = 0; i < array.length; ++i) {
+		for (int i = 0; i < array.length; i++) {
 			if (key == array[i]) {
 				return i;
 			}
@@ -201,7 +201,7 @@ public class IO {
 	}
 
 	public static int indexOf(String[] array, String key) {
-		for (int i = 0; i < array.length; ++i) {
+		for (int i = 0; i < array.length; i++) {
 			if (key.equals(array[i])) {
 				return i;
 			}

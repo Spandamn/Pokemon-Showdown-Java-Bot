@@ -70,7 +70,9 @@ public class Bot {
 			return;
 		}
 		for (int i = 0; i < ms.length; i++) {
-			if (ms[i].startsWith("|challstr|")) {
+			if (ms[i].length() == 0) {
+				continue;
+			} else if (ms[i].startsWith("|challstr|")) {
 				this.login(ms[i].substring(10));
 			} else if (ms[i].startsWith("|formats|")) {
 				this.setFormats(ms[i]);

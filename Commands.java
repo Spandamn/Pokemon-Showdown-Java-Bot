@@ -36,6 +36,7 @@ public class Commands {
 		Method send;
 		Class[] paramTypes = {String.class, String.class};
 		String sendType = "PM";
+		cmd = IO.toId(cmd);
 		try {
 			if (room == null) {
 				send = bot.getClass().getMethod("sendPM", paramTypes);
@@ -43,7 +44,7 @@ public class Commands {
 				sendType = "room";
 				send = room.getClass().getMethod("send", paramTypes);
 			}
-			if (IO.indexOf(cmdList, IO.toId(cmd)) < 0) {
+			if (IO.indexOf(cmdList, cmd) < 0) {
 				send.invoke(sendType.equals("PM") ? bot : room, user, "Error; Command not found");
 				return;
 			}

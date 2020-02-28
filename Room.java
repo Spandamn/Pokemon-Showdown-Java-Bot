@@ -15,6 +15,7 @@ public class Room {
 		title = initlist[2].split("\\|")[2];
 		userlist = initlist[3].split("\\|")[2].split(",");
 		char defaultAuthRank = '+';
+		IO.println("Room " + this.title + " initialized");
 	}
 
 	public void updateUL (String opts) {

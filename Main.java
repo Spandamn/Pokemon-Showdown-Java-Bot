@@ -6,8 +6,8 @@ public class Main {
 	String[] formats;
 
 	public static void main (String args[]) throws IOException {
+		IO io = new IO();
 		Config conf =  new Config();
 		Bot bot = new Bot(conf);
-		IO.println("Process ended");
 	}
 }

@@ -155,7 +155,7 @@ public class Bot {
 	}
 
 	public void parseChatMessage (String user, String message, Room r) {
-		if (IO.toId(user) = this.id) return;
+		if (IO.toId(user) == this.id) return;
 		char rank = user.charAt(0);
 		boolean isCommand = false;
 		for (int i = 0; i < conf.comchars.length; i++) {

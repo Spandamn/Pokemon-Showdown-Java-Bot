@@ -146,9 +146,10 @@ public class IO {
 
 	public static String toId (String text) {
 		String newStr = "";
+		text = text.toLowerCase();
 		for (int i = 0; i < text.length(); i++) {
 			int c = (int)text.charAt(i);
-			if (c >= 65 && c <= 90 || c >= 97 && c <= 122 || c >= ((int)'0') && c <= ((int)'9')) {
+			if (c >= 97 && c <= 122 || c >= ((int)'0') && c <= ((int)'9')) {
 				newStr += (char)c;
 			}
 		}
@@ -164,8 +165,7 @@ public class IO {
 				if (arr[i].equalsIgnoreCase(opt.substring(3))) {
 					continue;
 				}
-				arrr[j] = arr[i];
-				j++;
+				arrr[j++] = arr[i];
 			}
 		} else if (opt.startsWith("add")) {
 			arrr = Arrays.copyOf(arr, arr.length + 1);
@@ -177,7 +177,7 @@ public class IO {
 	public static String join (String[] arr, String s) {
 		String n = "";
 		for (int i = 0; i < arr.length; i++) {
-			n = n + arr[i] + (i == arr.length - 1) ? "" : s;
+			n = n + arr[i] + ((i == arr.length - 1) ? "" : s);
 		}
 		return n;
 	}
@@ -185,7 +185,7 @@ public class IO {
 	public static String join (char[] arr, String s) {
 		String n = "";
 		for (int i = 0; i < arr.length; i++) {
-			n = n + arr[i] + (i == arr.length - 1) ? "" : s;
+			n = n + arr[i] + ((i == arr.length - 1) ? "" : s);
 		}
 		return n;
 	}

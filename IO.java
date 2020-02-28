@@ -162,7 +162,8 @@ public class IO {
 			arrr = new String[arr.length - 1];
 			int j = 0;
 			for (int i = 0; i < arr.length; i++) {
-				if (arr[i].equalsIgnoreCase(opt.substring(3))) {
+				if (IO.toId(arr[i]).equals(IO.toId(opt.substring(3)))) {
+					j = i + 1;
 					continue;
 				}
 				arrr[j++] = arr[i];

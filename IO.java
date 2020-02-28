@@ -161,9 +161,9 @@ public class IO {
 		if (opt.startsWith("del")) {
 			arrr = new String[arr.length - 1];
 			int j = 0;
-			for (int i = 0; i < arr.length; i++) {
+			for (int i = 0; i < arrr.length; i++) {
 				if (IO.toId(arr[i]).equals(IO.toId(opt.substring(3)))) {
-					j = i + 1;
+					i = i + 1;
 					continue;
 				}
 				arrr[j++] = arr[i];

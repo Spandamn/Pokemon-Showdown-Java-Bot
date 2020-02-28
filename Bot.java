@@ -2,8 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.lang.reflect.*;
-import org.json.simple.*;
-import org.json.simple.parser.*;
+import org.json.*;
 import org.apache.http.client.methods.*;
 
 public class Bot {
@@ -99,8 +98,7 @@ public class Bot {
 					response.append(responseLine.trim());
 				}
 				System.out.println(response.toString());
-				JSONParser jp = new JSONParser();
-				lgdt = (JSONObject) jp.parse(response.toString().substring(1));
+				lgdt = new JSONObject (response.toString().substring(1));
 			} finally {
 				wr.flush();
 				wr.close();
@@ -112,7 +110,12 @@ public class Bot {
 			return;
 		}
 		if (lgdt != null) {
-			this.sendToServer("|/trn " + conf.nick + ",0," + lgdt.get("assertation"));
+			try {
+				this.sendToServer("|/trn " + conf.nick + ",0," + lgdt.getString("assertation"));
+			} catch (JSONException jsone) {
+				System.err.println("Cant read JSON.");
+				return;
+			}
 			this.isLoggedIn = true;
 			this.sendToServer("|/avatar " + conf.avatar);
 			for (int i = 0; i < conf.rooms.length; i++) {

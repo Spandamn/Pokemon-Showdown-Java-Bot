@@ -1,42 +1,48 @@
 import java.io.*;
+import org.json.*;
 
 public class Config {
-	String nick, pass, avatar, server;
+	String nick, pass, server;
 	String[] rooms, devs;
-	int port;
-	char[] comchars, ranks;
-	public Config () throws IOException {
-		FileReader conf;
-		BufferedReader br = null;
+	int port, avatar;
+	char[] comchars, ranks; // Actually character arrays; but JSON will import them as strings
+	public Config () {
+		JSONObject lgdt;
 		try {
-			conf = new FileReader("details.txt");
-			br = new BufferedReader(conf);
-			String nextL;
-			while ((nextL = br.readLine()) != null) {
-				if (nextL.startsWith("nickname")) {
-					nick = nextL.split(":")[1];
-				} else if (nextL.startsWith("password")) {
-					pass = nextL.split(":")[1];
-				} else if (nextL.startsWith("avatar")) {
-					avatar = nextL.split(":")[1];
-				} else if (nextL.startsWith("rooms")) {
-					rooms = nextL.split(":")[1].split(",");
-				} else if (nextL.startsWith("devs")) {
-					devs = nextL.split(":")[1].split(",");
-				} else if (nextL.startsWith("server")) {
-					server = nextL.split(":")[1];
-				} else if (nextL.startsWith("port")) {
-					port = Integer.parseInt(nextL.split(":")[1]);
-				} else if (nextL.startsWith("comchars")) {
-					comchars = nextL.split(":")[1].toCharArray();
-				} else if (nextL.startsWith("ranks")) {
-					ranks = nextL.split(":")[1].toCharArray();
-				}
+			String file = "";
+			BufferedReader read = new BufferedReader(new FileReader("details.json"));
+			String line =  "";
+			while ((line = read.readLine()) != null) file += line + "\n";
+			lgdt = new JSONObject (file);
+			nick = lgdt.getString("nickname");
+			pass = lgdt.getString("password");
+			avatar = lgdt.getInt("avatar");
+			//System.out.println(lgdt.get("rooms").getClass().getName());
+			JSONArray rooms = (JSONArray) lgdt.get("rooms");
+			JSONArray devs = (JSONArray) lgdt.get("devs");
+			server = lgdt.getString("server");
+			port = lgdt.getInt("port");
+			JSONArray comchars = (JSONArray) lgdt.get("comchars");
+			JSONArray ranks = (JSONArray) lgdt.get("ranks");
+			this.rooms  = new String[rooms.length()];
+			for (int i = 0; i < rooms.length(); i++) {
+				this.rooms[i] = rooms.getString(i);
 			}
-		} finally {
-			if (br != null) {
-				br.close();
+			this.devs  = new String[devs.length()];
+			for (int i = 0; i < devs.length(); i++) {
+				this.devs[i] = devs.getString(i);
 			}
+			this.comchars  = new char[comchars.length()];
+			for (int i = 0; i < comchars.length(); i++) {
+				this.comchars[i] = comchars.getString(i).charAt(0);
+			}
+			this.ranks  = new char[ranks.length()];
+			for (int i = 0; i < ranks.length(); i++) {
+				this.ranks[i] = ranks.getString(i).charAt(0);
+			}
+		} catch (IOException e) {}
+		catch (JSONException jsone) {
+			System.err.println("Error: Cant read JSON file");
 		}
 	}
 }

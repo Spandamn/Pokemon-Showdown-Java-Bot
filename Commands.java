@@ -123,7 +123,7 @@ public class Commands {
 
 	public void _say (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (!bot.hasUserAuth(user, '&')) return;
-		if (mess.startsWith("/")) "/" + mess;
+		if (mess.startsWith("/")) mess = "/" + mess;
 		send.invoke(ob == null ? this.bot : ob, user, mess);
 	}
 

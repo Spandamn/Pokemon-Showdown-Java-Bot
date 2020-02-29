@@ -111,6 +111,22 @@ public class Commands {
 		}
 	}
 
+	public void _custom (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+		if (!bot.hasUserAuth(user, '&')) return;
+		IO.println("Custom command \"" + mess + "\" invoked by " + user);
+		if (ob == null) {
+			bot.sendToServer("|" + mess);
+		} else {
+			ob.send(mess);
+		}
+	}
+
+	public void _say (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+		if (!bot.hasUserAuth(user, '&')) return;
+		if (mess.startsWith("/")) "/" + mess;
+		send.invoke(ob == null ? this.bot : ob, user, mess);
+	}
+
 	public void _restart (String user, String mess, Method send, Room ob) {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Restart triggered by " + user);

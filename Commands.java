@@ -70,6 +70,7 @@ public class Commands {
 	public void _changeauthrank (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (mess.length() >= 1 || mess.length() == 0) {
 			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid rank");
+			return;
 		}
 		char defaultAuthRank = ob == null ? this.bot.defaultAuthRank : ob.defaultAuthRank;
 		if (!bot.hasUserAuth(user, defaultAuthRank)) return;

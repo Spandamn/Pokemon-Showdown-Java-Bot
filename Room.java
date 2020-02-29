@@ -25,6 +25,8 @@ public class Room {
 		} else if (options[1].equalsIgnoreCase("L")) {
 			userlist = IO.arrayMod(userlist, "del" + options[2]);
 		} else if (options[1].equalsIgnoreCase("N")) {
+			IO.println(opts);
+			IO.println(options[2] + " " + options[3] + ".");
 			userlist = IO.arrayMod(userlist, "del" + options[3]);
 			userlist = IO.arrayMod(userlist, "add" + options[2]);
 		}

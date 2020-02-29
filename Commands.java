@@ -66,6 +66,7 @@ public class Commands {
 		send.invoke(ob == null ? this.bot : ob, user, "List of available commands: " + IO.join(cmdList, ", "));
 	}
 
+	// Admin commands
 	public void _changeauthrank (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (mess.length() >= 1 || mess.length() == 0) {
 			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid rank");
@@ -103,7 +104,7 @@ public class Commands {
 		IO.println("Reloading config");
 		boolean b = bot.reloadConfig();
 		if (b) {
-			send.invoke(ob == null ? this.bot : ob, user, "Coonfig Reloaded");
+			send.invoke(ob == null ? this.bot : ob, user, "Config Reloaded");
 		} else {
 			send.invoke(ob == null ? this.bot : ob, user, "Error reloading config");
 		}
@@ -113,5 +114,16 @@ public class Commands {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Restart triggered by " + user);
 		bot.restartProcess();
+	}
+
+	// Misc commands
+	public void _pick (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+		if (mess.length() == 0 || mess.indexOf(',') < 0) {
+			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid choices");
+			return;
+		}
+		String choices[] = mess.split(",");
+		String choice = choices[(int)Math.floor(Math.random() * choices.length)];
+		send.invoke(ob == null ? this.bot : ob, user, "Randomly picked: " + choice);
 	}
 }

@@ -29,6 +29,7 @@ public class Room {
 				return;
 			} else if (IO.indexOf(this.userlist, options[2]) < 0) {
 				// User apparently does not exist in userlist
+				IO.println(opts);
 				return;
 			}
 			this.userlist = IO.arrayMod(userlist, "del" + options[2]);

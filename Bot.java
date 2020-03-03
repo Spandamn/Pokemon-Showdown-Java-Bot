@@ -42,7 +42,7 @@ public class Bot {
 
 	public void handleMessage (String s) {
 		String[] ms = s.split("\n");
-		Room curRoom = null;
+		Room curRoom = this.getRoom("lobby");
 		if (s.startsWith(">")) {
 			if (ms[1].startsWith("|init|")) {
 				if (rooms[0] == null) {

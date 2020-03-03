@@ -32,6 +32,7 @@ public class WS extends WebSocketClient {
 
 	@Override
 	public void onMessage(String message) {
+		IO.println(message);
 		bot.handleMessage(message);
 	} 
 

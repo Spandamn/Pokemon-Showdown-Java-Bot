@@ -45,7 +45,8 @@ public class Bot {
 		if (s.startsWith(">")) {
 			if (ms[1].startsWith("|init|")) {
 				if (rooms == null) {
-					rooms = {new Room(s, this)};
+					rooms = new Room[1];
+					rooms[0] = new Room(s, this);
 					curRoom = rooms[0];
 				} else {
 					rooms = Arrays.copyOf(rooms, rooms.length + 1);
@@ -58,7 +59,8 @@ public class Bot {
 			curRoom = this.getRoom(IO.toId(ms[0]));
 		} else if (s.startsWith("|init|")) {
 			if (rooms == null) {
-				rooms = {new Room(">lobby\n" + s, this)};
+				rooms = new Room[1];
+				rooms[0] = new Room(">lobby\n" + s, this);
 				curRoom = rooms[0];
 			} else {
 				rooms = Arrays.copyOf(rooms, rooms.length + 1);

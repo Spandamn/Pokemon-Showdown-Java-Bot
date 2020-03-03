@@ -82,7 +82,11 @@ public class Bot {
 				this.setFormats(ms[i]);
 			} else if (ms[i].startsWith("|pm|")) {
 				String bd[] = ms[i].split("\\|");
-				this.parseChatMessage(bd[2], bd[4], null);
+				int messageIndex = 0;
+				for (int i = 0; i < 4; i++) {
+					messageIndex = ms[i].indexOf("|");
+				}
+				this.parseChatMessage(bd[2], ms[i].substring(messageIndex + 1), null);
 			} else if (ms[i].startsWith("|updateuser|")) {
 				String bd[] = ms[i].split("\\|");
 				this.username = bd[2];

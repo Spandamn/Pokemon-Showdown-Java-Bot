@@ -131,7 +131,7 @@ public class Bot {
 			}
 			this.isLoggedIn = true;
 			System.out.println("Succesfully logged in.");
-			System.out.println("Command Characters: " + String.join(" ", conf.comchars));
+			System.out.println("Command Characters: " + IO.join(conf.comchars, " "));
 			this.sendToServer("|/avatar " + conf.avatar);
 			for (int i = 0; i < conf.rooms.length; i++) {
 				this.sendToServer("|/join " + conf.rooms[i]);
@@ -164,7 +164,7 @@ public class Bot {
 			if (message.startsWith(conf.comchars[i] + "")) isCommand = true;
 		}
 		if (!isCommand && r == null) {
-			this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + String.join(", ", this.conf.comchars) + " (Use the help command with a command character like .help to get help on commands)");
+			this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like .help to get help on commands)");
 			return;
 		}
 		if (!isCommand) return;

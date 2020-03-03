@@ -150,7 +150,7 @@ public class Commands {
 			return;
 		}
 		if (IO.toId(mess).length() == 0 && ob != null) {
-			bot.sendToServer("/leave " + ob.id);
+			bot.sendToServer("|/leave " + ob.id);
 			return;
 		}
 		String rooms[] = mess.split(",");

@@ -86,6 +86,9 @@ public class Bot {
 				for (int j = 0; j < 4; j++) {
 					messageIndex = ms[i].indexOf("|");
 				}
+				IO.println(ms[i]);
+				IO.println("Index: " + messageIndex);
+				IO.println(ms[i].substring(messageIndex + 1));
 				this.parseChatMessage(bd[2], ms[i].substring(messageIndex + 1), null);
 			} else if (ms[i].startsWith("|updateuser|")) {
 				String bd[] = ms[i].split("\\|");

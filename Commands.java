@@ -145,11 +145,11 @@ public class Commands {
 
 	public void _leave (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (!bot.hasUserAuth(user, '&')) return;
-		if (mess.length() == 0 && ob == null) {
+		if (IO.toId(mess).length() == 0 && ob == null) {
 			send.invoke(this.bot, user, "Error: Invalid Command Arguments");
 			return;
 		}
-		if (mess.length() == 0 && ob != null) {
+		if (IO.toId(mess).length() == 0 && ob != null) {
 			ob.leave();
 			return;
 		}

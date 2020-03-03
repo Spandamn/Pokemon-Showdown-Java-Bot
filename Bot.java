@@ -27,7 +27,6 @@ public class Bot {
 		} catch (UnknownHostException uhe) {
 			System.err.println("Error: Invalid Servername or Port");
 		}
-		this.rooms = new Room[1];
 		this.defaultAuthRank = '~';
 	}
 
@@ -45,8 +44,8 @@ public class Bot {
 		Room curRoom = this.getRoom("lobby");
 		if (s.startsWith(">")) {
 			if (ms[1].startsWith("|init|")) {
-				if (rooms[0] == null) {
-					rooms[0] = new Room(s, this);
+				if (rooms == null) {
+					rooms = {new Room(s, this)};
 					curRoom = rooms[0];
 				} else {
 					rooms = Arrays.copyOf(rooms, rooms.length + 1);
@@ -58,8 +57,8 @@ public class Bot {
 			}
 			curRoom = this.getRoom(IO.toId(ms[0]));
 		} else if (s.startsWith("|init|")) {
-			if (rooms[0] == null) {
-				rooms[0] = new Room(">lobby\n" + s, this);
+			if (rooms == null) {
+				rooms = {new Room(">lobby\n" + s, this)};
 				curRoom = rooms[0];
 			} else {
 				rooms = Arrays.copyOf(rooms, rooms.length + 1);
@@ -171,7 +170,7 @@ public class Bot {
 			return;
 		}
 		if (!isCommand) return;
-		com.callCommand(message.substring(1).split(" ")[0], user, message.substring(message.indexOf(" ") + 1), r);
+		com.callCommand(message.substring(1).split(" ")[0], user, message.indexOf(" ") < 0 ? "" : message.substring(message.indexOf(" ") + 1), r);
 	}
 
 	public boolean hasUserAuth (String username, char requiredRank) {

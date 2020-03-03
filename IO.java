@@ -146,6 +146,7 @@ public class IO {
 
 	public static String toId (String text) {
 		String newStr = "";
+		if (text == null) return "";
 		text = text.toLowerCase();
 		for (int i = 0; i < text.length(); i++) {
 			int c = (int)text.charAt(i);

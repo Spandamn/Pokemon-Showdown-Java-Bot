@@ -9,7 +9,7 @@ import org.java_websocket.handshake.ServerHandshake;
 
 public class WS extends WebSocketClient {
 	Bot bot;
-	FileWriter wr;
+	boolean logReply = false;
 	public WS(URI serverUri, Draft draft) {
 		super(serverUri, draft);
 	}
@@ -32,6 +32,10 @@ public class WS extends WebSocketClient {
 
 	@Override
 	public void onMessage(String message) {
+		if (this.logReply) {
+			this.logReply = false;
+			IO.println(message);
+		}
 		bot.handleMessage(message);
 	} 
 

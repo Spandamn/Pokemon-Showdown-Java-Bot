@@ -157,6 +157,12 @@ public class Commands {
 		for (int i = 0; i < rooms.length; i++) bot.sendToServer("|/leave " + rooms[i]);
 	}
 
+	public void _sendandlog (String user, String mess, Method send, Room ob) {
+		if (!bot.hasUserAuth(user, '&')) return;
+		bot.socket.logReply = true;
+		bot.sendToServer(mess);
+	}
+
 	// Misc commands
 	public void _pick (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (mess.length() == 0 || mess.indexOf(',') < 0) {

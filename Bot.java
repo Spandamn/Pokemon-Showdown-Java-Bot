@@ -83,7 +83,7 @@ public class Bot {
 			} else if (ms[i].startsWith("|pm|")) {
 				String bd[] = ms[i].split("\\|");
 				int messageIndex = 0;
-				for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
 					messageIndex = ms[i].indexOf("|");
 				}
 				this.parseChatMessage(bd[2], ms[i].substring(messageIndex + 1), null);

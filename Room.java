@@ -21,21 +21,24 @@ public class Room {
 	public void updateUL (String opts) {
 		String[] options = opts.split("\\|");
 		if (options[1].equalsIgnoreCase("J")) {
-			userlist = IO.arrayMod(userlist, "add" + options[2]);
+			this.userlist = IO.arrayMod(this.userlist, "add" + options[2]);
 		} else if (options[1].equalsIgnoreCase("L")) {
 			if (options[2].equals(IO.toId(options[2]))) {
 				// User has logged out
 				this.userLogout(options[2]);
 				return;
+			} else if (IO.indexOf(this.userlist, options[2]) < 0) {
+				// User apparently does not exist in userlist
+				return;
 			}
-			userlist = IO.arrayMod(userlist, "del" + options[2]);
+			this.userlist = IO.arrayMod(userlist, "del" + options[2]);
 		} else if (options[1].equalsIgnoreCase("N")) {
 			if (options[2].endsWith("@!")) {
 				//User is busy/away
 				return;
 			}
-			userlist = IO.arrayMod(userlist, "del" + options[3]);
-			userlist = IO.arrayMod(userlist, "add" + options[2]);
+			this.userlist = IO.arrayMod(userlist, "del" + options[3]);
+			this.userlist = IO.arrayMod(userlist, "add" + options[2]);
 		}
 	}
 

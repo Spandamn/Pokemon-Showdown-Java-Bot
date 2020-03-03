@@ -83,8 +83,8 @@ public class Bot {
 			} else if (ms[i].startsWith("|pm|")) {
 				String bd[] = ms[i].split("\\|");
 				int messageIndex = 0;
-				for (int j = 0; j < 4; j++) {
-					messageIndex = ms[i].indexOf("|");
+				for (int j = 0; j < 3; j++) {
+					messageIndex = ms[i].indexOf("|", messageIndex);
 				}
 				IO.println(ms[i]);
 				IO.println("Index: " + messageIndex);

@@ -72,7 +72,7 @@ public class Bot {
 		for (int i = 0; i < ms.length; i++) {
 			if (ms[i].length() == 0) {
 				continue;
-			} else if (ms[i].startsWith("|deinit")) {
+			} else if (ms[i].startsWith("|deinit") && curRoom != null) {
 				curRoom.leave();
 				return;
 			} else if (ms[i].startsWith("|challstr|")) {

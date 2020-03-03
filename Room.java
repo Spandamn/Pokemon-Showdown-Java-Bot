@@ -71,4 +71,18 @@ public class Room {
 			}
 		}
 	}
+
+	public void leave () {
+		Room roomList[] = new Room[bot.rooms.length - 1];
+		int j = 0;
+		for (int i = 0; i < bot.rooms.length; i++) {
+			if (bot.rooms[i] != null && bot.rooms[i].id.equals(this.id)) {
+				i = i + 1;
+				continue;
+			}
+			roomList[j++] = bot.rooms[i];
+		}
+		bot.rooms = roomList;
+		IO.println("Left room " + this.title);
+	}
 }

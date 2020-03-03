@@ -72,6 +72,9 @@ public class Bot {
 		for (int i = 0; i < ms.length; i++) {
 			if (ms[i].length() == 0) {
 				continue;
+			} else if (ms[i].startsWith("|deinit")) {
+				curRoom.leave();
+				return;
 			} else if (ms[i].startsWith("|challstr|")) {
 				this.login(ms[i].substring(10));
 			} else if (ms[i].startsWith("|formats|")) {

@@ -139,12 +139,22 @@ public class Commands {
 			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid Command Arguments");
 			return;
 		}
+		String rooms = mess.split(",");
+		for (int i = 0; i < rooms.length; i++) bot.sendToServer("|/join " + rooms[i]);
 	}
 
 	public void _leave (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (!bot.hasUserAuth(user, '&')) return;
-		IO.println("Restart triggered by " + user);
-		bot.restartProcess();
+		if (mess.length() == 0 && ob == null) {
+			send.invoke(this.bot, user, "Error: Invalid Command Arguments");
+			return;
+		}
+		if (mess.length() == 0 && ob != null) {
+			ob.leave();
+			return;
+		}
+		String rooms[] = mess.split(",");
+		for (int i = 0; i < rooms.length; i++) bot.sendToServer("|/leave " + rooms[i]);
 	}
 
 	// Misc commands

@@ -149,7 +149,7 @@ public class Bot {
 	}
 
 	public Room getRoom (String s) {
-		if (this.rooms.length <= 0) return null;
+		if (this.rooms == null || this.rooms.length <= 0) return null;
 		for (int i = 0; i < this.rooms.length; i++) {
 			if (this.rooms[i] != null && this.rooms[i].id.equals(IO.toId(s))) return this.rooms[i];
 		}

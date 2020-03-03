@@ -14,7 +14,7 @@ public class Room {
 		type = initlist[1].split("\\|")[2];
 		title = initlist[2].split("\\|")[2];
 		userlist = initlist[3].split("\\|")[2].split(",");
-		char defaultAuthRank = '+';
+		char defaultAuthRank = id.equals("lobby") ? '#' : '+';
 		IO.println("Room " + this.title + " initialized");
 	}
 

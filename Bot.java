@@ -84,7 +84,7 @@ public class Bot {
 				String bd[] = ms[i].split("\\|");
 				int messageIndex = 0;
 				for (int j = 0; j < 3; j++) {
-					messageIndex = ms[i].indexOf("|", messageIndex);
+					messageIndex = ms[i].indexOf("|", messageIndex + 1);
 				}
 				IO.println(ms[i]);
 				IO.println("Index: " + messageIndex);

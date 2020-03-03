@@ -86,9 +86,6 @@ public class Bot {
 				for (int j = 0; j < 3; j++) {
 					messageIndex = ms[i].indexOf("|", messageIndex + 1);
 				}
-				IO.println(ms[i]);
-				IO.println("Index: " + messageIndex);
-				IO.println(ms[i].substring(messageIndex + 1));
 				this.parseChatMessage(bd[2], ms[i].substring(messageIndex + 1), null);
 			} else if (ms[i].startsWith("|updateuser|")) {
 				String bd[] = ms[i].split("\\|");
@@ -99,7 +96,11 @@ public class Bot {
 				curRoom.updateUL(ms[i]);
 			} else if (curRoom != null && (ms[i].startsWith("|c:|") || ms[i].startsWith("|c|"))) {
 				String bd[] = ms[i].split("\\|");
-				this.parseChatMessage(bd[3], bd[4], curRoom);
+				int messageIndex = 0;
+				for (int j = 0; j < 3; j++) {
+					messageIndex = ms[i].indexOf("|", messageIndex + 1);
+				}
+				this.parseChatMessage(bd[3], ms[i].substring(messageIndex + 1), curRoom);
 			}
 			//System.out.println(ms[i]);
 		}

@@ -37,6 +37,10 @@ public class Room {
 			if (options[2].endsWith("@!")) {
 				//User is busy/away
 				return;
+			} else if (IO.indexOf(this.userlist, options[3]) < 0) {
+				// User apparently does not exist in userlist
+				IO.println(opts);
+				return;
 			}
 			this.userlist = IO.arrayMod(userlist, "del" + options[3]);
 			this.userlist = IO.arrayMod(userlist, "add" + options[2]);

@@ -160,7 +160,7 @@ public class Commands {
 	public void _sendandlog (String user, String mess, Method send, Room ob) {
 		if (!bot.hasUserAuth(user, '&')) return;
 		bot.socket.logReply = true;
-		bot.socket.send(mess);
+		bot.socket.send("|" + mess);
 	}
 
 	// Misc commands

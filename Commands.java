@@ -115,7 +115,7 @@ public class Commands {
 		if (!bot.hasUserAuth(user, '&')) return;
 		IO.println("Custom command \"" + mess + "\" invoked by " + user);
 		if (ob == null) {
-			bot.sendToServer("|" + mess);
+			bot.sendToServer(mess);
 		} else {
 			ob.send(mess);
 		}

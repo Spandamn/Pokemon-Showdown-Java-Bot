@@ -195,7 +195,7 @@ public class IO {
 
 	public static int indexOf(String[] array, String key) {
 		for (int i = 0; i < array.length; i++) {
-			if (key.equals(array[i])) {
+			if (key.equals(array[i]) || key.equals(IO.toId(array[i]))) {
 				return i;
 			}
 		}

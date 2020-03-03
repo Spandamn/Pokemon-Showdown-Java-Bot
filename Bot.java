@@ -164,7 +164,7 @@ public class Bot {
 			if (message.startsWith(conf.comchars[i] + "")) isCommand = true;
 		}
 		if (!isCommand && r == null) {
-			this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like .help to get help on commands)");
+			this.sendPM(user, "Hey! I am " + this.conf.nick + ". My command characters are: " + IO.join(this.conf.comchars, ", ") + " (Use the help command with a command character like " + this.conf.comchars[0] + "help to get help on commands)");
 			return;
 		}
 		if (!isCommand) return;

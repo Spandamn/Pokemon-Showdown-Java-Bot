@@ -23,7 +23,11 @@ public class Room {
 		if (options[1].equalsIgnoreCase("J")) {
 			userlist = IO.arrayMod(userlist, "add" + options[2]);
 		} else if (options[1].equalsIgnoreCase("L")) {
-			IO.println(opts);
+			if (options[2].equals(IO.toId(options[2]))) {
+				// User has logged out
+				this.userLogout(options[2]);
+				return;
+			}
 			userlist = IO.arrayMod(userlist, "del" + options[2]);
 		} else if (options[1].equalsIgnoreCase("N")) {
 			if (options[2].endsWith("@!")) {
@@ -49,5 +53,14 @@ public class Room {
 
 	public void send (String message) {
 		bot.sendToServer(this.id + "|" + message);
+	}
+
+	public void userLogout (String user) {
+		for (int i = 0; i < this.userlist.length; i++) {
+			if (user.equals(IO.toId(this.userlist[i]))) {
+				this.userlist = IO.arrayMod(this.userlist, this.userlist[i]);
+				return;
+			}
+		}
 	}
 }

@@ -139,7 +139,7 @@ public class Commands {
 			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid Command Arguments");
 			return;
 		}
-		String rooms = mess.split(",");
+		String rooms[] = mess.split(",");
 		for (int i = 0; i < rooms.length; i++) bot.sendToServer("|/join " + rooms[i]);
 	}
 

@@ -114,7 +114,6 @@ public class Bot {
 				while ((responseLine = br.readLine()) != null) {
 					response.append(responseLine.trim());
 				}
-				System.out.println(response.toString());
 				lgdt = new JSONObject (response.toString().substring(1));
 			} finally {
 				wr.flush();

@@ -133,6 +133,20 @@ public class Commands {
 		bot.restartProcess();
 	}
 
+	public void _join (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+		if (!bot.hasUserAuth(user, '&')) return;
+		if (mess.length() == 0) {
+			send.invoke(ob == null ? this.bot : ob, user, "Error: Invalid Command Arguments");
+			return;
+		}
+	}
+
+	public void _leave (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+		if (!bot.hasUserAuth(user, '&')) return;
+		IO.println("Restart triggered by " + user);
+		bot.restartProcess();
+	}
+
 	// Misc commands
 	public void _pick (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (mess.length() == 0 || mess.indexOf(',') < 0) {

@@ -29,7 +29,7 @@ public class Commands {
 				cmdList[cmdCount++] = fnName.substring(1);
 			}
 		}
-		IO.println("Loaded commands: " + IO.join(cmdList, ", "));
+		IO.println("Loaded commands: " + String.join(", ", cmdList));
 	}
 
 	public void callCommand (String cmd, String user, String mess, Room room) {
@@ -63,7 +63,7 @@ public class Commands {
 	}
 
 	public void _help (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
-		send.invoke(ob == null ? this.bot : ob, user, "List of available commands: " + IO.join(cmdList, ", "));
+		send.invoke(ob == null ? this.bot : ob, user, "List of available commands: " + String.join(", ", cmdList));
 	}
 
 	// Admin commands

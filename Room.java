@@ -23,6 +23,7 @@ public class Room {
 		if (options[1].equalsIgnoreCase("J")) {
 			userlist = IO.arrayMod(userlist, "add" + options[2]);
 		} else if (options[1].equalsIgnoreCase("L")) {
+			IO.println(opts);
 			userlist = IO.arrayMod(userlist, "del" + options[2]);
 		} else if (options[1].equalsIgnoreCase("N")) {
 			if (options[2].endsWith("@!")) {

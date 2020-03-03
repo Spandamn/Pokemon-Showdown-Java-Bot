@@ -175,22 +175,6 @@ public class IO {
 		return arrr;
 	}
 
-	public static String join (String[] arr, String s) {
-		String n = "";
-		for (int i = 0; i < arr.length; i++) {
-			n = n + arr[i] + ((i == arr.length - 1) ? "" : s);
-		}
-		return n;
-	}
-
-	public static String join (char[] arr, String s) {
-		String n = "";
-		for (int i = 0; i < arr.length; i++) {
-			n = n + arr[i] + ((i == arr.length - 1) ? "" : s);
-		}
-		return n;
-	}
-
 	public static int indexOf(char[] array, char key) {
 		for (int i = 0; i < array.length; i++) {
 			if (key == array[i]) {

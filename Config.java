@@ -31,7 +31,7 @@ public class Config {
 			for (int i = 0; i < devs.length(); i++) {
 				this.devs[i] = devs.getString(i);
 			}
-			IO.println("Devs: " + IO.join(this.devs, ", "));
+			IO.println("Devs: " + String.join(", ", this.devs));
 			this.comchars  = new char[comchars.length()];
 			for (int i = 0; i < comchars.length(); i++) {
 				this.comchars[i] = comchars.getString(i).charAt(0);

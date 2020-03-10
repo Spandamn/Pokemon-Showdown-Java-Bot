@@ -66,6 +66,10 @@ public class Commands {
 		send.invoke(ob == null ? this.bot : ob, user, "List of available commands: " + String.join(", ", cmdList));
 	}
 
+	public void _git (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
+		send.invoke(ob == null ? this.bot : ob, user, "Github repository: https://github.com/Spandamn/Pokemon-Showdown-Java-Bot Feel Free to PR!");
+	}
+
 	// Admin commands
 	public void _changeauthrank (String user, String mess, Method send, Room ob) throws IllegalAccessException, InvocationTargetException {
 		if (mess.length() >= 1 || mess.length() == 0) {

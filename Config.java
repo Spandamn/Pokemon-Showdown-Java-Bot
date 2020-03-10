@@ -10,7 +10,7 @@ public class Config {
 		JSONObject lgdt;
 		try {
 			String file = "";
-			BufferedReader read = new BufferedReader(r);
+			BufferedReader read = new BufferedReader(f);
 			String line =  "";
 			while ((line = read.readLine()) != null) file += line + "\n";
 			lgdt = new JSONObject (file);

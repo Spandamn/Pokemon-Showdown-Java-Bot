@@ -10,7 +10,7 @@ public class Config {
 		JSONObject lgdt;
 		try {
 			String file = "";
-			BufferedReader read = new BufferedReader();
+			BufferedReader read = new BufferedReader(r);
 			String line =  "";
 			while ((line = read.readLine()) != null) file += line + "\n";
 			lgdt = new JSONObject (file);
@@ -52,19 +52,19 @@ public class Config {
 	public Config () {
 		IO io = new IO();
 		io.println("Please enter the username: ");
-		this.server = io.getString();
+		this.nick = io.getLine();
 		io.println("Please enter the password: ");
-		this.password = io.getString();
+		this.pass = io.getLine();
 		io.println("Please enter the avatar number: ");
 		this.avatar = io.getInt();
 		io.println("Please enter the room to join:");
 		this.rooms = new String[1];
-		this.rooms[0] = io.getString();
+		this.rooms[0] = io.getLine();
 		io.println("Please enter the developer username on PS:");
 		this.devs = new String[1];
-		this.devs[0] = io.getString();
+		this.devs[0] = io.getLine();
 		io.println("Please enter the server:");
-		this.server = io.getString();
+		this.server = io.getLine();
 		io.println("Please enter the port");
 		this.port = io.getInt();
 		this.port = this.port == 0 ? 8000 : this.port;

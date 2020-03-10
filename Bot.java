@@ -16,30 +16,33 @@ public class Bot {
 	String username, id;
 	char defaultAuthRank;
 	String lastM = "";
+	String configFile = "details.json";
 	Bot () {
-		String configFile = "details.json";
-		this.conf = new Config(new FileReader(configFile));
-		com = new Commands(this);
+		boolean on;
 		do {
+			on = false;
 			try {
-				socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this);
+				this.conf = new Config(new FileReader(this.configFile));
+				socket = new WS(new URI("ws://" + InetAddress.getByName(this.conf.server).getHostAddress() + ":" + this.conf.port + "/showdown/websocket"), this);
 				socket.connect();
 				break;
+			} catch (FileNotFoundException fnfe) {
+				IO.println("Config file is corrupt or does not exist. ");
+				IO io = new IO();
+				io.println("Do you want to input the login details here? y/n");
+				char c = io.getChar();
+				if (c == 'y' || c == 'Y') {
+					on = true;
+					this.conf = new Config();
+				}
 			} catch (URISyntaxException use) {
 				System.err.println("Error: Invalid URI");
+				break;
 			} catch (UnknownHostException uhe) {
 				System.err.println("Error: Invalid Servername or Port");
-			} catch (ConnectException ce) {
-				System.err.println("Error: Either config file is corrupt, doesnt exist or does not have the server details right.");
-				IO.println("Do you want to enter login details here? y/n");
-				IO io = new IO();
-				if (io.getChar() == 'y') {
-					this.conf = new Config();
-					continue;
-				}
-				break;
 			}
-		} while (true);
+		} while (on);
+		com = new Commands(this);
 		this.defaultAuthRank = '~';
 	}
 
@@ -119,9 +122,9 @@ public class Bot {
 		}
 	}
 
-	public void login (String s) {
+	private void login (String challstr) {
 		try {
-			String jsonop = "{\"act\":\"login\",\"name\":\"" + this.conf.nick + "\",\"pass\":\"" + this.conf.pass + "\",\"challstr\":\"" + s + "\"}";
+			String jsonop = "{\"act\":\"login\",\"name\":\"" + this.conf.nick + "\",\"pass\":\"" + this.conf.pass + "\",\"challstr\":\"" + challstr + "\"}";
 			URL UrlObj = new URL("http://play.pokemonshowdown.com/action.php");
 			HttpURLConnection connection = (HttpURLConnection) UrlObj.openConnection();
 			connection.setRequestMethod("POST");
@@ -136,6 +139,8 @@ public class Bot {
 					response.append(responseLine.trim());
 				}
 				lgdt = new JSONObject (response.toString().substring(1));
+			} catch (Exception e) {
+				e.printStackTrace();
 			} finally {
 				wr.flush();
 				wr.close();
@@ -221,7 +226,7 @@ public class Bot {
 
 	public boolean reloadConfig () {
 		try {
-			Config conf = new Config();
+			Config conf = new Config(new FileReader(configFile));
 			this.conf = conf;
 		} catch (Exception e) {
 			e.printStackTrace();

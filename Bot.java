@@ -17,16 +17,29 @@ public class Bot {
 	char defaultAuthRank;
 	String lastM = "";
 	Bot () {
-		this.conf = new Config();
+		String configFile = "details.json";
+		this.conf = new Config(new FileReader(configFile));
 		com = new Commands(this);
-		try {
-			socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this);
-			socket.connect();
-		} catch (URISyntaxException use) {
-			System.err.println("Error: Invalid URI");
-		} catch (UnknownHostException uhe) {
-			System.err.println("Error: Invalid Servername or Port");
-		}
+		do {
+			try {
+				socket = new WS(new URI("ws://" + InetAddress.getByName(conf.server).getHostAddress() + ":" + conf.port + "/showdown/websocket"), this);
+				socket.connect();
+				break;
+			} catch (URISyntaxException use) {
+				System.err.println("Error: Invalid URI");
+			} catch (UnknownHostException uhe) {
+				System.err.println("Error: Invalid Servername or Port");
+			} catch (ConnectException ce) {
+				System.err.println("Error: Either config file is corrupt, doesnt exist or does not have the server details right.");
+				IO.println("Do you want to enter login details here? y/n");
+				IO io = new IO();
+				if (io.getChar() == 'y') {
+					this.conf = new Config();
+					continue;
+				}
+				break;
+			}
+		} while (true);
 		this.defaultAuthRank = '~';
 	}
 
